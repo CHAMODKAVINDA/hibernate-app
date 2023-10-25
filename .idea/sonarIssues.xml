@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/18aa042a-9861-4e5c-85c2-99116d69cd3a/console.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Customer.java">
           <value>
             <set />
