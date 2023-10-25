@@ -13,33 +13,23 @@ public class Demo {
         //getCustomer(1);
         //deleteCustomerById(1);
         //deleteCustomerByObject(2);
-        updateCustomer();
-
+        //updateCustomer();
 
     }
 
     private static void updateCustomer() {
         Customer c1 = new Customer(2L,"Nimal","Colombo",20000);
 
-
-        Configuration configuration = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(c1);
         transaction.commit();
         session.close();
-        sessionFactory.close();
     }
 
     private static void deleteCustomerById(long id) {
-        Configuration configuration = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
+
+        Session session = HibernateUtil.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("DELETE Customer WHERE customer_id=:id");
         query.setParameter("id", id);
@@ -48,22 +38,16 @@ public class Demo {
     }
 
     private static void deleteCustomerByObject(long id) {
-        Configuration configuration = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
+
+        Session session = HibernateUtil.openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(session.get(Customer.class, id));
         transaction.commit();
     }
 
     private static void getCustomer(long id) {
-        Configuration configuration = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
+
+        Session session =HibernateUtil.openSession();
 
         Customer customer = session.get(Customer.class, id);
         System.out.println(customer);
@@ -72,11 +56,7 @@ public class Demo {
     private static void getAllCustomers() {
         Customer c1 = new Customer(2L,"Bandara","Panadura",40000);
 
-        Configuration configuration = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.openSession();
         Query query = session.createQuery("FROM Customer");
         List list = query.list();
         System.out.println(list);
@@ -84,18 +64,14 @@ public class Demo {
     }
 
     public static void saveCustomer(){
-        Customer c1 = new Customer(2L,"Bandara","Panadura",40000);
+        Customer c1 = new Customer(3L,"Bandara","Panadura",40000);
 
-        Configuration configuration = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateUtil.openSession();
         Transaction transaction = session.beginTransaction();
         session.save(c1);
         transaction.commit();
         session.close();
-        sessionFactory.close();
+
     }
 
 }
